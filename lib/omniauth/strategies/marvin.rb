@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'omniauth/strategies/oauth2'
 
 module OmniAuth
@@ -5,15 +7,11 @@ module OmniAuth
     class Marvin < OmniAuth::Strategies::OAuth2
       option :name, 'marvin'
 
-      option :client_options,
-             site: 'https://api.intra.42.fr',
-             authorize_path: 'v2/oauth/authorize'
+      option :client_options, {
+        site: env['MARVIN_SITE']
+      }
 
       uid { raw_info['id'] }
-      
-      def callback_url
-          full_host + script_name + callback_path
-      end
 
       info do
         {
@@ -33,6 +31,10 @@ module OmniAuth
         {
           'raw_info' => raw_info
         }
+      end
+
+      def callback_url
+        full_host + script_name + callback_path
       end
 
       def raw_info
