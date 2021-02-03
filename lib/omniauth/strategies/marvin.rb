@@ -10,6 +10,10 @@ module OmniAuth
              authorize_path: 'v2/oauth/authorize'
 
       uid { raw_info['id'] }
+      
+      def callback_url
+          full_host + script_name + callback_path
+      end
 
       info do
         {
