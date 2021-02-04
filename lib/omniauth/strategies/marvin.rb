@@ -8,7 +8,7 @@ module OmniAuth
       option :name, 'marvin'
 
       option :client_options, {
-        site: ENV['MARVIN_SITE']
+        site: ENV['OAUTH_PROVIDER_CALLBACK']
       }
 
       uid { raw_info['id'] }
